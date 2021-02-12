@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WildShapeSwitchStatement", "WildShapeSwitchStatement\WildShapeSwitchStatement.csproj", "{2DEAEF24-3946-4DBD-AA31-08ECC7C01F34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DEAEF24-3946-4DBD-AA31-08ECC7C01F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEAEF24-3946-4DBD-AA31-08ECC7C01F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEAEF24-3946-4DBD-AA31-08ECC7C01F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEAEF24-3946-4DBD-AA31-08ECC7C01F34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FCCFB74-607A-4CDB-85DC-EDEC98BE236F}
+	EndGlobalSection
+EndGlobal
