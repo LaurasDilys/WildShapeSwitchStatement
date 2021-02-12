@@ -211,10 +211,10 @@ namespace WildShapeSwitchStatement
 
             StringBuilder sb = new StringBuilder();
 
-            foreach (var monster in MonsterList.Monsters.Where(x => x == "Tyrannosaurus Rex"))
-            {
+            foreach (var monster in MonsterList.Monsters)
+            {                                         //.Where(x => x == "Tyrannosaurus Rex")
                 string input = SC(monster);
-                #region <infinite switch statement>
+                #region <initial values>
                 // Some beasts have Skill Proficiencies and Senses, so new values might be assigned to some of these variables.
                 string name = "";
                 string size = "null";
@@ -266,7 +266,9 @@ namespace WildShapeSwitchStatement
 
                 string traits = "null";
                 string environments = "null";
+                #endregion
 
+                #region <infinite switch statement>
                 switch (input)
                 {
                     case "fire":
@@ -2807,13 +2809,19 @@ namespace WildShapeSwitchStatement
                 sb.Append($"WisdomSavingThrow = {XX(WIS, WISst)}, AnimalHandling = {XX(WIS, animalHandling)}, Insight = {XX(WIS, insight)}, Medicine = {XX(WIS, medicine)}, Perception = {XX(WIS, perception)}, Survival = {XX(WIS, survival)}, ");
                 sb.Append($"CharismaSavingThrow = {XX(CHA, CHAst)}, Deception = {XX(CHA, deception)}, Intimidation = {XX(CHA, intimidation)}, Performance = {XX(CHA, performance)}, Persuasion = {XX(CHA, persuasion)}, ");
 
+                //string sense = "Blindsight";
+                //if (senses.Contains(sense))
+                //{
+                //    Console.WriteLine(monster);
+                //    Console.WriteLine(senses.Substring(sense.Length + 1, 3));
+                //    Console.WriteLine();
+                //}
 
 
 
 
 
-
-                Console.WriteLine(sb);
+                //Console.WriteLine(sb);
 
                 sb = new StringBuilder();
             }
