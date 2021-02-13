@@ -210,6 +210,7 @@ namespace WildShapeSwitchStatement
             #endregion
 
             StringBuilder sb = new StringBuilder();
+            sb.Append("Change birds' ALLIGNMENT\n\n");
             int ID = 0;
             foreach (var monster in MonsterList.Monsters)
             {                                         //.Where(x => x == "Tyrannosaurus Rex")
@@ -2820,8 +2821,13 @@ namespace WildShapeSwitchStatement
 
                 //sb.Append(string.Format("Tag = {0} }},", tag == "null" ? "Misc Creature" : tag));
 
-
-                Console.WriteLine(sb);
+                /// <summary>
+                /// Environments
+                /// </summary>
+                sb = new StringBuilder();
+                string environs = environments.Replace(" ", "");
+                if (environs != "null") Console.WriteLine($"\"{ID},{environs}\",");
+                //Console.WriteLine(sb);
 
 
 
