@@ -210,7 +210,7 @@ namespace WildShapeSwitchStatement
             #endregion
 
             StringBuilder sb = new StringBuilder();
-
+            int ID = 0;
             foreach (var monster in MonsterList.Monsters)
             {                                         //.Where(x => x == "Tyrannosaurus Rex")
                 string input = SC(monster);
@@ -2795,33 +2795,35 @@ namespace WildShapeSwitchStatement
                 }
                 #endregion
 
-                sb.Append($"new MonsterDataModel {{ Name = \"{monster}\", Size = \"{size}\", Type = \"Beast\", Alignment = \"Unaligned\", ArmorClass = {AC}, HitPoints = {HP}, WalkSpeed = {speed}, ");
+                sb.Append($"new MonsterDataModel {{ MonsterId = {++ID}, Name = \"{monster}\", Size = \"{size}\", Type = \"Beast\", Alignment = \"Unaligned\", ArmorClass = {AC}, HitPoints = {HP}, WalkSpeed = {speed}, ");
                 if (burrow > -5) sb.Append($"BurrowSpeed = {burrow}, ");
                 if (climb > -5) sb.Append($"ClimbSpeed = {climb}, ");
                 if (fly > -5) sb.Append($"FlySpeed = {fly}, ");
                 if (swim > -5) sb.Append($"SwimSpeed = {swim}, ");
                 sb.Append($"Strength = {STR}, Dexterity = {DEX}, Constitution = {CON}, Intelligence = {INT}, Wisdom = {WIS}, Charisma = {CHA}, ");
+                sb.Append($"StrengthSavingThrow = {GetFrom(STR, STRst)}, Athletics = {GetFrom(STR, athletics)}, ");
+                sb.Append($"DexteritySavingThrow = {GetFrom(DEX, DEXst)}, Acrobatics = {GetFrom(DEX, acrobatics)}, SleightOfHand = {GetFrom(DEX, sleightOfHand)}, Stealth = {GetFrom(DEX, stealth)}, ");
+                sb.Append($"ConstitutionSavingThrow = {GetFrom(CON, CONst)}, ");
+                sb.Append($"IntelligenceSavingThrow = {GetFrom(INT, INTst)}, Arcana = {GetFrom(INT, arcana)}, History = {GetFrom(INT, history)}, Investigation = {GetFrom(INT, investigation)}, Nature = {GetFrom(INT, nature)}, Religion = {GetFrom(INT, religion)}, ");
+                sb.Append($"WisdomSavingThrow = {GetFrom(WIS, WISst)}, AnimalHandling = {GetFrom(WIS, animalHandling)}, Insight = {GetFrom(WIS, insight)}, Medicine = {GetFrom(WIS, medicine)}, Perception = {GetFrom(WIS, perception)}, Survival = {GetFrom(WIS, survival)}, ");
+                sb.Append($"CharismaSavingThrow = {GetFrom(CHA, CHAst)}, Deception = {GetFrom(CHA, deception)}, Intimidation = {GetFrom(CHA, intimidation)}, Performance = {GetFrom(CHA, performance)}, Persuasion = {GetFrom(CHA, persuasion)}, ");
+                sb.Append(GetFrom(senses, "Blindsight"));
+                sb.Append(GetFrom(senses, "Darkvision"));
+                sb.Append(GetFrom(senses, "Tremorsense"));
+                sb.Append(GetFrom(senses, "Truesight"));sb.Append($"ChallengeRating = {CR}, ");
+                sb.Append($"ProficiencyBonus = {GetProficiencyBonus(monster)}, ");
 
-                sb.Append($"StrengthSavingThrow = {XX(STR, STRst)}, Athletics = {XX(STR, athletics)}, ");
-                sb.Append($"DexteritySavingThrow = {XX(DEX, DEXst)}, Acrobatics = {XX(DEX, acrobatics)}, SleightOfHand = {XX(DEX, sleightOfHand)}, Stealth = {XX(DEX, stealth)}, ");
-                sb.Append($"ConstitutionSavingThrow = {XX(CON, CONst)}, ");
-                sb.Append($"IntelligenceSavingThrow = {XX(INT, INTst)}, Arcana = {XX(INT, arcana)}, History = {XX(INT, history)}, Investigation = {XX(INT, investigation)}, Nature = {XX(INT, nature)}, Religion = {XX(INT, religion)}, ");
-                sb.Append($"WisdomSavingThrow = {XX(WIS, WISst)}, AnimalHandling = {XX(WIS, animalHandling)}, Insight = {XX(WIS, insight)}, Medicine = {XX(WIS, medicine)}, Perception = {XX(WIS, perception)}, Survival = {XX(WIS, survival)}, ");
-                sb.Append($"CharismaSavingThrow = {XX(CHA, CHAst)}, Deception = {XX(CHA, deception)}, Intimidation = {XX(CHA, intimidation)}, Performance = {XX(CHA, performance)}, Persuasion = {XX(CHA, persuasion)}, ");
-
-                //string sense = "Blindsight";
-                //if (senses.Contains(sense))
-                //{
-                //    Console.WriteLine(monster);
-                //    Console.WriteLine(senses.Substring(sense.Length + 1, 3));
-                //    Console.WriteLine();
-                //}
-
-
+                int i = Array.IndexOf(MonsterList.Monsters, monster) + 13;
+                if (i > 101) sb.Append($"CanSpeak = true }},");
+                else sb.Append($"CanSpeak = false }},");
 
 
+                //sb.Append(string.Format("Tag = {0} }},", tag == "null" ? "Misc Creature" : tag));
 
-                //Console.WriteLine(sb);
+
+                Console.WriteLine(sb);
+
+
 
                 sb = new StringBuilder();
             }
@@ -2829,7 +2831,24 @@ namespace WildShapeSwitchStatement
             Console.Read();
         }
 
-        static int XX(float abilityScore, int skill)
+        static int GetProficiencyBonus(string monster)
+        {
+            int i = Array.IndexOf(MonsterList.Monsters, monster) + 13;
+            if (i > 95) return 3;
+            else return 2;
+        }
+
+        static string GetFrom(string senses, string sense)
+        {
+            if (senses.Contains(sense))
+            {
+                int i = senses.IndexOf(sense);
+                return $"{sense} = {Convert.ToInt32(senses.Substring(i + sense.Length + 1, 3))}, ";
+            }
+            return "";
+        }
+
+        static int GetFrom(float abilityScore, int skill)
         {
             if (skill > -5) return skill;
             return AM(abilityScore);

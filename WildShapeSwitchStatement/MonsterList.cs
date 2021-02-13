@@ -98,7 +98,11 @@ namespace WildShapeSwitchStatement
             "Triceratops",
             "Mammoth",
             "Giant Ape",
-            "Tyrannosaurus Rex"
+            "Tyrannosaurus Rex",
+            "Air Elemental",
+            "Earth Elemental",
+            "Fire Elemental",
+            "Water Elemental"
         };
     }
 }
