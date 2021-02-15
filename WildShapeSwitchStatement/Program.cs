@@ -2825,27 +2825,30 @@ namespace WildShapeSwitchStatement
 
                 // PARTIAL Traits
                 // MonsterTraits
-                if (traits != "null" && traits.Contains(" and "))
+                if (traits != "null") // && traits.Contains(" and ")
                 {
                     Console.Write("\"");
+                    if (traits.Contains("\n\n"))
+                    {
+                        int newline = traits.IndexOf("\n\n");
+                        traits = traits.Substring(0, newline);
+                    }
                     if (traits.Contains("."))
                     {
                         int dot = traits.IndexOf(".");
                         string shortTrait = traits.Substring(0, dot);
-                        Console.Write($"{ID},{shortTrait}");
+                        Console.Write($"{ID},{shortTrait.Replace(" and", ",Keen")}");
                         //
-                        //allTraits.Add(shortTrait);
+                        allTraits.Add(shortTrait);
                     }
                     else
                     {
-                        Console.Write($"{ID},{traits.Substring(0, traits.Length - 3).Replace(" -- ", ",")}");
+                        Console.Write($"{ID},{traits.Substring(0, traits.Length - 3).Replace(" -- ", ",").Replace(" and", ",Keen")}");
                         //
-                        //foreach (string trait in traits.Substring(0, traits.Length - 3).Replace(" -- ", ",").Split(',')) allTraits.Add(trait);
+                        foreach (string trait in traits.Substring(0, traits.Length - 3).Replace(" -- ", ",").Split(',')) allTraits.Add(trait);
                     }
                     Console.WriteLine("\",");
                 }
-
-
                 // MonsterEnvirons
                 //string environs = environments.Replace(" ", "");
                 //if (environs != "null") Console.WriteLine($"\"{ID},{environs}\",");
