@@ -212,8 +212,12 @@ namespace WildShapeSwitchStatement
             StringBuilder sb = new StringBuilder();
             sb.Append("Change birds' ALLIGNMENT\n\n");
             int ID = 0;
+            List<string> allTraits = new List<string>();
+            List<string> allEnvirons = new List<string>();
+            List<string> tags = new List<string>();
             foreach (var monster in MonsterList.Monsters)
             {                                         //.Where(x => x == "Tyrannosaurus Rex")
+                ID++;
                 string input = SC(monster);
                 #region <initial values>
                 // Some beasts have Skill Proficiencies and Senses, so new values might be assigned to some of these variables.
@@ -2796,43 +2800,80 @@ namespace WildShapeSwitchStatement
                 }
                 #endregion
 
-                sb.Append($"new MonsterDataModel {{ MonsterId = {++ID}, Name = \"{monster}\", Size = \"{size}\", Type = \"Beast\", Alignment = \"Unaligned\", ArmorClass = {AC}, HitPoints = {HP}, WalkSpeed = {speed}, ");
-                if (burrow > -5) sb.Append($"BurrowSpeed = {burrow}, ");
-                if (climb > -5) sb.Append($"ClimbSpeed = {climb}, ");
-                if (fly > -5) sb.Append($"FlySpeed = {fly}, ");
-                if (swim > -5) sb.Append($"SwimSpeed = {swim}, ");
-                sb.Append($"Strength = {STR}, Dexterity = {DEX}, Constitution = {CON}, Intelligence = {INT}, Wisdom = {WIS}, Charisma = {CHA}, ");
-                sb.Append($"StrengthSavingThrow = {GetFrom(STR, STRst)}, Athletics = {GetFrom(STR, athletics)}, ");
-                sb.Append($"DexteritySavingThrow = {GetFrom(DEX, DEXst)}, Acrobatics = {GetFrom(DEX, acrobatics)}, SleightOfHand = {GetFrom(DEX, sleightOfHand)}, Stealth = {GetFrom(DEX, stealth)}, ");
-                sb.Append($"ConstitutionSavingThrow = {GetFrom(CON, CONst)}, ");
-                sb.Append($"IntelligenceSavingThrow = {GetFrom(INT, INTst)}, Arcana = {GetFrom(INT, arcana)}, History = {GetFrom(INT, history)}, Investigation = {GetFrom(INT, investigation)}, Nature = {GetFrom(INT, nature)}, Religion = {GetFrom(INT, religion)}, ");
-                sb.Append($"WisdomSavingThrow = {GetFrom(WIS, WISst)}, AnimalHandling = {GetFrom(WIS, animalHandling)}, Insight = {GetFrom(WIS, insight)}, Medicine = {GetFrom(WIS, medicine)}, Perception = {GetFrom(WIS, perception)}, Survival = {GetFrom(WIS, survival)}, ");
-                sb.Append($"CharismaSavingThrow = {GetFrom(CHA, CHAst)}, Deception = {GetFrom(CHA, deception)}, Intimidation = {GetFrom(CHA, intimidation)}, Performance = {GetFrom(CHA, performance)}, Persuasion = {GetFrom(CHA, persuasion)}, ");
-                sb.Append(GetFrom(senses, "Blindsight"));
-                sb.Append(GetFrom(senses, "Darkvision"));
-                sb.Append(GetFrom(senses, "Tremorsense"));
-                sb.Append(GetFrom(senses, "Truesight"));sb.Append($"ChallengeRating = {CR}, ");
-                sb.Append($"ProficiencyBonus = {GetProficiencyBonus(monster)}, ");
-
-                int i = Array.IndexOf(MonsterList.Monsters, monster) + 13;
-                if (i > 101) sb.Append($"CanSpeak = true }},");
-                else sb.Append($"CanSpeak = false }},");
-
-
-                //sb.Append(string.Format("Tag = {0} }},", tag == "null" ? "Misc Creature" : tag));
-
-                /// <summary>
-                /// Environments
-                /// </summary>
-                sb = new StringBuilder();
-                string environs = environments.Replace(" ", "");
-                if (environs != "null") Console.WriteLine($"\"{ID},{environs}\",");
+                //sb.Append($"new MonsterDataModel {{ MonsterId = {ID}, Name = \"{monster}\", Size = \"{size}\", Type = \"Beast\", Alignment = \"Unaligned\", ArmorClass = {AC}, HitPoints = {HP}, WalkSpeed = {speed}, ");
+                //if (burrow > -5) sb.Append($"BurrowSpeed = {burrow}, ");
+                //if (climb > -5) sb.Append($"ClimbSpeed = {climb}, ");
+                //if (fly > -5) sb.Append($"FlySpeed = {fly}, ");
+                //if (swim > -5) sb.Append($"SwimSpeed = {swim}, ");
+                //sb.Append($"Strength = {STR}, Dexterity = {DEX}, Constitution = {CON}, Intelligence = {INT}, Wisdom = {WIS}, Charisma = {CHA}, ");
+                //sb.Append($"StrengthSavingThrow = {GetFrom(STR, STRst)}, Athletics = {GetFrom(STR, athletics)}, ");
+                //sb.Append($"DexteritySavingThrow = {GetFrom(DEX, DEXst)}, Acrobatics = {GetFrom(DEX, acrobatics)}, SleightOfHand = {GetFrom(DEX, sleightOfHand)}, Stealth = {GetFrom(DEX, stealth)}, ");
+                //sb.Append($"ConstitutionSavingThrow = {GetFrom(CON, CONst)}, ");
+                //sb.Append($"IntelligenceSavingThrow = {GetFrom(INT, INTst)}, Arcana = {GetFrom(INT, arcana)}, History = {GetFrom(INT, history)}, Investigation = {GetFrom(INT, investigation)}, Nature = {GetFrom(INT, nature)}, Religion = {GetFrom(INT, religion)}, ");
+                //sb.Append($"WisdomSavingThrow = {GetFrom(WIS, WISst)}, AnimalHandling = {GetFrom(WIS, animalHandling)}, Insight = {GetFrom(WIS, insight)}, Medicine = {GetFrom(WIS, medicine)}, Perception = {GetFrom(WIS, perception)}, Survival = {GetFrom(WIS, survival)}, ");
+                //sb.Append($"CharismaSavingThrow = {GetFrom(CHA, CHAst)}, Deception = {GetFrom(CHA, deception)}, Intimidation = {GetFrom(CHA, intimidation)}, Performance = {GetFrom(CHA, performance)}, Persuasion = {GetFrom(CHA, persuasion)}, ");
+                //sb.Append(GetFrom(senses, "Blindsight"));
+                //sb.Append(GetFrom(senses, "Darkvision"));
+                //sb.Append(GetFrom(senses, "Tremorsense"));
+                //sb.Append(GetFrom(senses, "Truesight"));sb.Append($"ChallengeRating = {CR}, ");
+                //sb.Append($"ProficiencyBonus = {GetProficiencyBonus(monster)}, ");
+                //int i = Array.IndexOf(MonsterList.Monsters, monster) + 13;
+                //if (i > 101) sb.Append($"CanSpeak = true }},");
+                //else sb.Append($"CanSpeak = false }},");
                 //Console.WriteLine(sb);
+                //sb = new StringBuilder();
+
+                // PARTIAL Traits
+                // MonsterTraits
+                if (traits != "null" && traits.Contains(" and "))
+                {
+                    Console.Write("\"");
+                    if (traits.Contains("."))
+                    {
+                        int dot = traits.IndexOf(".");
+                        string shortTrait = traits.Substring(0, dot);
+                        Console.Write($"{ID},{shortTrait}");
+                        //
+                        //allTraits.Add(shortTrait);
+                    }
+                    else
+                    {
+                        Console.Write($"{ID},{traits.Substring(0, traits.Length - 3).Replace(" -- ", ",")}");
+                        //
+                        //foreach (string trait in traits.Substring(0, traits.Length - 3).Replace(" -- ", ",").Split(',')) allTraits.Add(trait);
+                    }
+                    Console.WriteLine("\",");
+                }
 
 
+                // MonsterEnvirons
+                //string environs = environments.Replace(" ", "");
+                //if (environs != "null") Console.WriteLine($"\"{ID},{environs}\",");
 
-                sb = new StringBuilder();
+                // PARTIAL Environs
+                //string[] currentEnvirons = environments.Replace(" ", "").Split(',');
+                //foreach (string environ in currentEnvirons) allEnvirons.Add(environ);
+
+                // MonsterLanguages
+                //if (languages != "null") Console.WriteLine($"\"{ID},{languages}\",");
+
+                // MonsterTags
+                //if (tag != "null") Console.WriteLine($"\"{ID}, {tag}\",");
             }
+
+            int x = 0;
+
+            // PARTIAL Traits
+            //foreach (string trait in allTraits.Distinct().OrderBy(y => y)) if (!trait.Contains(" and ")) Console.WriteLine($"new Trait {{ Id = {++x}, Name = \"{trait}\" }},");
+
+            // PARTIAL Environs
+            //foreach (var environ in allEnvirons.Where(e => e != "null").Distinct().OrderBy(y => y)) Console.WriteLine($"new Environ {{ Id = {++x}, Name = \"{environ}\" }},");
+
+            // Languages
+            //foreach (string lang in LangList.Languages) Console.WriteLine($"new Language {{ Id = {++x}, Name = \"{lang}\" }},");
+
+            // Tags
+            //foreach (string tag in tags.Distinct().OrderBy(y => y)) Console.WriteLine(tag);
 
             Console.Read();
         }

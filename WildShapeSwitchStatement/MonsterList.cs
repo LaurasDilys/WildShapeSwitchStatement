@@ -99,10 +99,10 @@ namespace WildShapeSwitchStatement
             "Mammoth",
             "Giant Ape",
             "Tyrannosaurus Rex",
-            "Air Elemental",
-            "Earth Elemental",
-            "Fire Elemental",
-            "Water Elemental"
+            //"Air Elemental",
+            //"Earth Elemental",
+            //"Fire Elemental",
+            //"Water Elemental"
         };
     }
 }
